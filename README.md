@@ -17,7 +17,7 @@ Railway ejecuta automáticamente:
 ```
 npm install
 npm run build
-npm start          # sirve dist/Zaynix-Website/browser en $PORT
+npm start          # node server.mjs en $PORT
 ```
 
 ## Publicar una nueva versión de la app

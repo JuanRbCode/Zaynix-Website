@@ -1,0 +1,165 @@
+:host {
+  display: block;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.etiqueta {
+  display: block;
+  color: #666;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.portada {
+  padding: 96px 0 72px;
+  text-align: center;
+
+  .logo {
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .subtitulo {
+    color: #a1a1a1;
+    font-size: 18px;
+    margin-bottom: 36px;
+  }
+
+  .acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .detalle {
+    color: #666;
+    font-size: 13px;
+    margin-top: 18px;
+  }
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 22px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #161616;
+  color: #ededed;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #1c1c1c;
+  }
+
+  &.primario {
+    background: #fff;
+    border-color: #fff;
+    color: #0a0a0a;
+    font-weight: 600;
+
+    &:hover {
+      background: #d4d4d4;
+    }
+  }
+}
+
+.novedades {
+  max-width: 720px;
+  margin: 0 auto 64px;
+  padding: 20px 24px;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+
+  p {
+    color: #a1a1a1;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+.funciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding-bottom: 80px;
+
+  article {
+    padding: 24px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+  }
+
+  h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #a1a1a1;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+.instalar {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  ol {
+    padding-left: 20px;
+    color: #a1a1a1;
+    line-height: 1.9;
+    font-size: 15px;
+  }
+
+  .hash {
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+  }
+
+  code {
+    display: block;
+    color: #a1a1a1;
+    font-size: 13px;
+    word-break: break-all;
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 24px 0;
+  border-top: 1px solid #222;
+  color: #666;
+  font-size: 13px;
+}
