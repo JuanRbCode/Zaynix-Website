@@ -1,0 +1,97 @@
+section {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 24px 2rem 0;
+}
+
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 32px 36px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(125, 243, 255, 0.4);
+  border-radius: 24px;
+  background:
+    radial-gradient(50% 130% at 100% 100%, rgba(120, 85, 215, 0.28), transparent),
+    rgba(255, 255, 255, 0.035);
+}
+
+h2 {
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.2;
+}
+
+em {
+  color: transparent;
+  background: linear-gradient(100deg, #7df3ff, #b79cff);
+  background-clip: text;
+}
+
+.cuenta {
+  margin-top: 10px;
+}
+
+.nota {
+  margin-top: 6px;
+  color: #a9aebb;
+  font-size: 14px;
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 0 28px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #b79cff;
+    stroke-width: 1.8;
+    stroke-linejoin: round;
+  }
+
+  &.marcado {
+    border-color: rgba(183, 156, 255, 0.6);
+    cursor: default;
+
+    svg {
+      fill: #b79cff;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  section {
+    padding: 24px 20px 0;
+  }
+
+  .panel {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 28px 22px;
+  }
+}

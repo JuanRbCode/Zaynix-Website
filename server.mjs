@@ -1,11 +1,27 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { MeGusta, ipDe } from './me-gusta.mjs';
 
 const PUERTO = Number(process.env.PORT) || 3000;
 const RAIZ = path.resolve('dist/Zaynix-Website/browser');
 const REPO = process.env.ZAYNIX_REPO || 'JuanRbCode/Zaynix';
 const CACHE_MS = 10 * 60 * 1000;
+const EN_RAILWAY = Boolean(process.env.RAILWAY_ENVIRONMENT_ID || process.env.RAILWAY_PROJECT_ID);
+const DATOS = process.env.DATOS || process.env.RAILWAY_VOLUME_MOUNT_PATH || (EN_RAILWAY ? null : '.datos');
+
+const meGusta = abrirMeGusta();
+
+function abrirMeGusta() {
+  if (!DATOS) return null;
+  try {
+    return new MeGusta(DATOS);
+  } catch (error) {
+    console.error('Me gusta desactivado:', error.message);
+    return null;
+  }
+}
 
 const TIPOS = {
   '.html': 'text/html; charset=utf-8',
@@ -135,7 +151,30 @@ function buscarArchivo(camino) {
   return null;
 }
 
+function atenderMeGusta(req, res) {
+  const json = (estado, datos, extra = {}) =>
+    responder(
+      req,
+      res,
+      estado,
+      { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex', ...extra },
+      JSON.stringify(datos),
+    );
+  req.resume();
+  if (!['GET', 'HEAD', 'POST'].includes(req.method)) return json(405, { error: 'No permitido' }, { Allow: 'GET, HEAD, POST' });
+  const ip = ipDe(req, EN_RAILWAY);
+  if (!meGusta || !ip) return json(503, { error: 'No disponible' });
+  if (req.method !== 'POST') return json(200, meGusta.estado(ip));
+  let origen = null;
+  try {
+    origen = new URL(req.headers.origin).host;
+  } catch {}
+  if (!origen || origen !== req.headers.host) return json(403, { error: 'No permitido' });
+  return json(200, meGusta.marcar(ip));
+}
+
 async function atender(req, res) {
+  if (req.url.split(/[?#]/)[0] === '/api/me-gusta') return atenderMeGusta(req, res);
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     return responder(req, res, 405, { Allow: 'GET, HEAD', 'Content-Type': 'text/plain; charset=utf-8' }, 'No permitido');
   }
@@ -183,7 +222,7 @@ async function atender(req, res) {
   responder(req, res, 404, { 'Content-Type': 'text/plain; charset=utf-8' }, 'No encontrado');
 }
 
-const servidor = http.createServer((req, res) => {
+export const servidor = http.createServer((req, res) => {
   atender(req, res).catch((error) => {
     console.error('Error al atender', req.url, error);
     if (!res.headersSent) responder(req, res, 500, { 'Content-Type': 'text/plain; charset=utf-8' }, 'Error del servidor');
@@ -191,4 +230,6 @@ const servidor = http.createServer((req, res) => {
   });
 });
 
-servidor.listen(PUERTO, () => console.log(`Zaynix Website en el puerto ${PUERTO}`));
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  servidor.listen(PUERTO, () => console.log(`Zaynix Website en el puerto ${PUERTO}`));
+}
