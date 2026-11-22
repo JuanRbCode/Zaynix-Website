@@ -7,7 +7,7 @@
 
 .etiqueta {
   display: block;
-  color: #666;
+  color: #8f8f8f;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -44,7 +44,7 @@
   }
 
   .detalle {
-    color: #666;
+    color: #8f8f8f;
     font-size: 13px;
     margin-top: 18px;
   }
@@ -153,13 +153,3 @@
   }
 }
 
-footer {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 24px 0;
-  border-top: 1px solid #222;
-  color: #666;
-  font-size: 13px;
-}

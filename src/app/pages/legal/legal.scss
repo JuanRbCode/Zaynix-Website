@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+  color: #c4c4c4;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+h1,
+h2 {
+  color: #ededed;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 36px 0 10px;
+}
+
+p,
+ul {
+  margin-bottom: 14px;
+}
+
+ul {
+  padding-left: 22px;
+}
+
+.fecha {
+  color: #8f8f8f;
+  font-size: 14px;
+}
+
+a {
+  color: #ededed;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+code {
+  word-break: break-word;
+}

@@ -1,16 +1,16 @@
 <section class="portada">
-  <img class="logo" src="logo.svg" alt="Zaynix" width="64" height="64" />
+  <img class="logo" src="logo.svg" alt="Logo de Zaynix" width="64" height="64" />
   <h1>Descarga y convierte audio y video,<br />sin complicaciones.</h1>
-  <p class="subtitulo">Aplicación de escritorio para Windows. Gratuita, privada y de código abierto.</p>
+  <p class="subtitulo">Aplicación de escritorio para Windows. Gratis, sin anuncios y de código abierto.</p>
 
   <div class="acciones">
-    <a class="boton primario" href="/descargar">
+    <a class="boton primario" href="/descargar" rel="nofollow">
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
         <path fill="currentColor" d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
       </svg>
       Descargar para Windows
     </a>
-    <a class="boton" [href]="version.repositorio" target="_blank" rel="noopener">Ver el código</a>
+    <a class="boton" [href]="version.repositorio" rel="noopener">Ver el código</a>
   </div>
 
   <p class="detalle">
@@ -27,12 +27,13 @@
 
 @if (info()?.notas) {
   <section class="novedades">
-    <span class="etiqueta">Novedades de la v{{ info()?.version }}</span>
+    <h2 class="etiqueta">Novedades de la v{{ info()?.version }}</h2>
     <p>{{ info()?.notas }}</p>
   </section>
 }
 
-<section id="funciones" class="funciones">
+<section id="funciones" class="funciones" aria-labelledby="titulo-funciones">
+  <h2 id="titulo-funciones" class="solo-lector">Funciones</h2>
   @for (f of funciones; track f.titulo) {
     <article>
       <h3>{{ f.titulo }}</h3>
@@ -56,7 +57,3 @@
   }
 </section>
 
-<footer>
-  <span>Zaynix · Licencia MIT</span>
-  <span>Usa Zaynix solo con contenido que tengas derecho a descargar.</span>
-</footer>

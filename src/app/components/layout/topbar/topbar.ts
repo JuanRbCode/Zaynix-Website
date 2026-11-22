@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { REPOSITORIO } from '../../../sitio';
 
 @Component({
   imports: [RouterLink],
@@ -8,5 +9,5 @@ import { RouterLink } from '@angular/router';
   templateUrl: './topbar.html',
 })
 export class Topbar {
-  protected readonly repositorio = 'https://github.com/JuanRbCode/Zaynix';
+  protected readonly repositorio = REPOSITORIO;
 }

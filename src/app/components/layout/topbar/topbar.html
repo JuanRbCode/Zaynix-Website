@@ -1,13 +1,14 @@
 <header>
   <a class="logo-container" routerLink="/">
     <img src="logo.svg" alt="" width="22" height="22" />
-    <p>Zaynix</p>
+    <span>Zaynix</span>
+    <span class="solo-lector">, inicio</span>
   </a>
 
-  <nav>
-    <a href="/#funciones">Funciones</a>
-    <a href="/#instalar">Instalación</a>
-    <a [href]="repositorio" target="_blank" rel="noopener">GitHub</a>
-    <a class="descargar" href="/descargar">Descargar</a>
+  <nav aria-label="Principal">
+    <a routerLink="/" fragment="funciones">Funciones</a>
+    <a routerLink="/" fragment="instalar">Instalación</a>
+    <a [href]="repositorio" rel="noopener">GitHub</a>
+    <a class="descargar" href="/descargar" rel="nofollow">Descargar</a>
   </nav>
 </header>

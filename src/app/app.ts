@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Layout } from './components/layout/layout/layout';
+import { SeoService } from './services/seo';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Layout } from './components/layout/layout/layout';
   templateUrl: './app.html',
   imports: [Layout],
 })
-export class App {}
+export class App {
+  constructor() {
+    inject(SeoService).iniciar();
+  }
+}

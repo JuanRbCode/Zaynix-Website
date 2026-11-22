@@ -1,4 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { REPOSITORIO } from '../sitio';
 
 export interface InfoVersion {
   version: string;
@@ -13,12 +15,13 @@ export interface InfoVersion {
 
 @Injectable({ providedIn: 'root' })
 export class VersionService {
-  readonly repositorio = 'https://github.com/JuanRbCode/Zaynix';
+  readonly repositorio = REPOSITORIO;
   readonly info = signal<InfoVersion | null>(null);
+  private readonly enNavegador = isPlatformBrowser(inject(PLATFORM_ID));
   private cargada = false;
 
   async cargar(): Promise<void> {
-    if (this.cargada) return;
+    if (this.cargada || !this.enNavegador) return;
     this.cargada = true;
     try {
       const r = await fetch('/version.json', { cache: 'no-store' });

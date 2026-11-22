@@ -1,6 +1,6 @@
 :host {
   display: block;
-  background: rgba(10, 10, 10, 0.8);
+  background: rgba(10, 10, 10, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #222;
 }
@@ -8,28 +8,34 @@
 header {
   width: 100%;
   max-width: 1080px;
-  height: 100%;
+  min-height: 64px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 8px 24px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 4px 16px;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 10px;
   font-weight: 600;
   font-size: 16px;
+
+  img {
+    margin-right: 10px;
+  }
 }
 
 nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 8px 24px;
 
   a {
+    padding: 6px 0;
     color: #a1a1a1;
     font-size: 14px;
     transition: color 0.15s;
@@ -54,7 +60,13 @@ nav {
 }
 
 @media (max-width: 640px) {
-  nav a:not(.descargar) {
-    display: none;
+  header {
+    padding: 8px 16px;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
   }
 }

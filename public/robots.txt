@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /descargar
+Disallow: /version.json
+
+Sitemap: https://zaynix-website.up.railway.app/sitemap.xml
