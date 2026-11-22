@@ -10,35 +10,35 @@
       </svg>
       Descargar para Windows
     </a>
-    <a class="boton" [href]="version.repositorio" rel="noopener">Ver el código</a>
+    <a class="boton" [href]="version.repositorio" target="_blank" rel="noopener">Ver el código<span class="solo-lector"> (se abre en otra pestaña)</span></a>
   </div>
 
   <p class="detalle">
     @if (info(); as i) {
-      Versión {{ i.version }}
-      @if (tamano()) { · {{ tamano() }} }
-      @if (i.fecha) { · {{ i.fecha }} }
-      · Windows 10 y 11 (64 bits)
+    Versión {{ i.version }}
+    @if (tamano()) { · {{ tamano() }} }
+    @if (i.fecha) { · {{ i.fecha }} }
+    · Windows 10 y 11 (64 bits)
     } @else {
-      Windows 10 y 11 (64 bits)
+    Windows 10 y 11 (64 bits)
     }
   </p>
 </section>
 
 @if (info()?.notas) {
-  <section class="novedades">
-    <h2 class="etiqueta">Novedades de la v{{ info()?.version }}</h2>
-    <p>{{ info()?.notas }}</p>
-  </section>
+<section class="novedades">
+  <h2 class="etiqueta">Novedades de la v{{ info()?.version }}</h2>
+  <p>{{ info()?.notas }}</p>
+</section>
 }
 
 <section id="funciones" class="funciones" aria-labelledby="titulo-funciones">
   <h2 id="titulo-funciones" class="solo-lector">Funciones</h2>
   @for (f of funciones; track f.titulo) {
-    <article>
-      <h3>{{ f.titulo }}</h3>
-      <p>{{ f.texto }}</p>
-    </article>
+  <article>
+    <h3>{{ f.titulo }}</h3>
+    <p>{{ f.texto }}</p>
+  </article>
   }
 </section>
 
@@ -46,14 +46,13 @@
   <h2>Instalación</h2>
   <ol>
     @for (p of pasos; track p) {
-      <li>{{ p }}</li>
+    <li>{{ p }}</li>
     }
   </ol>
   @if (info()?.sha256) {
-    <div class="hash">
-      <span class="etiqueta">SHA-256 del instalador</span>
-      <code>{{ info()?.sha256 }}</code>
-    </div>
+  <div class="hash">
+    <span class="etiqueta">SHA-256 del instalador</span>
+    <code>{{ info()?.sha256 }}</code>
+  </div>
   }
 </section>
-

@@ -1,0 +1,24 @@
+.etiqueta {
+    display: block;
+    color: #8f8f8f;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.novedades {
+    max-width: 720px;
+    margin: 64px auto 0;
+    padding: 20px 24px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+
+    p {
+        color: #a1a1a1;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}

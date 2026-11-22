@@ -1,5 +1,5 @@
 import { DOCUMENT, Injectable, inject } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { SITIO } from '../sitio';
@@ -9,7 +9,6 @@ export class SeoService {
   private readonly router = inject(Router);
   private readonly ruta = inject(ActivatedRoute);
   private readonly meta = inject(Meta);
-  private readonly titulo = inject(Title);
   private readonly documento = inject(DOCUMENT);
 
   iniciar(): void {
@@ -21,7 +20,7 @@ export class SeoService {
     while (actual.firstChild) actual = actual.firstChild;
     const datos = actual.snapshot.data;
     const indexar = datos['indexar'] !== false;
-    const camino = this.router.url.split(/[?#]/)[0];
+    const camino: string = datos['canonica'] ?? this.router.url.split(/[?#]/)[0];
     const url = SITIO + (camino === '/' ? '/' : camino.replace(/\/$/, ''));
 
     if (datos['descripcion']) {
@@ -29,7 +28,7 @@ export class SeoService {
       this.meta.updateTag({ property: 'og:description', content: datos['descripcion'] });
     }
     this.meta.updateTag({ name: 'robots', content: indexar ? 'index, follow' : 'noindex' });
-    this.meta.updateTag({ property: 'og:title', content: this.titulo.getTitle() });
+    this.meta.updateTag({ property: 'og:title', content: actual.snapshot.title ?? 'Zaynix' });
     this.meta.updateTag({ property: 'og:url', content: url });
 
     let canonica = this.documento.querySelector<HTMLLinkElement>('link[rel="canonical"]');

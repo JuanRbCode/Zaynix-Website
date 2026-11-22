@@ -2,12 +2,12 @@
 
     <a class="saltar" href="#contenido" (click)="saltar($event, contenido)">Saltar al contenido</a>
 
-    <app-topbar></app-topbar>
+    <app-topbar [class.con-fondo]="desplazado()"></app-topbar>
 
     <main id="contenido" class="show" tabindex="-1" #contenido>
         <router-outlet></router-outlet>
     </main>
 
-    <app-pie></app-pie>
+    <app-footer></app-footer>
 
 </div>

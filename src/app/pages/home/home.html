@@ -1,0 +1,12 @@
+<app-hero></app-hero>
+
+@if (info()?.notas) {
+<section class="novedades">
+    <h2 class="etiqueta">Novedades de la v{{ info()?.version }}</h2>
+    <p>{{ info()?.notas }}</p>
+</section>
+}
+
+<app-funciones></app-funciones>
+
+<app-ayuda></app-ayuda>

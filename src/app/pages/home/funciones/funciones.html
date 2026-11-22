@@ -1,0 +1,90 @@
+<section id="funciones" aria-labelledby="titulo-funciones">
+  <div class="contenido">
+    <header>
+      <h2 id="titulo-funciones">Qué puedes hacer <em>con Zaynix</em></h2>
+      <p class="intro">Descargar de plataformas compatibles o convertir lo que ya tienes en el PC.</p>
+    </header>
+
+    <ul class="rejilla">
+      <li class="cristal grande">
+        <div class="texto">
+          <h3>Descarga desde un enlace</h3>
+          <p>Pegas el enlace y sale la miniatura con el título y la duración. Eliges el formato y listo.</p>
+        </div>
+        <img src="app-descargar-1400.webp" srcset="app-descargar-760.webp 760w, app-descargar-1400.webp 1400w"
+          sizes="(max-width: 960px) 92vw, 760px" width="1400" height="706" loading="lazy"
+          alt="Zaynix con un enlace pegado, la vista previa de la canción y los selectores de formato y calidad" />
+        <span class="numero" aria-hidden="true">01</span>
+      </li>
+
+      <li class="cristal alta">
+        <h3>Elige la calidad</h3>
+        <p>Si el video llega a 1080p, la app te muestra hasta 1080p. El MP3 va de 128 a 320 kbps.</p>
+        <div class="fichas"><span class="sub">Audio, kbps</span>
+          @for (k of audio; track k) { <b>{{ k }}</b> }
+        </div>
+        <div class="fichas"><span class="sub">Video</span>
+          @for (v of video; track v) { <b>{{ v }}</b> }
+        </div>
+        <svg class="arte" viewBox="0 0 420 190" aria-hidden="true">
+          <defs>
+            <linearGradient id="f-v" x2="1" y2="1"><stop stop-color="#f2fdff" stop-opacity=".85" /><stop offset=".5" stop-color="#7df3ff" stop-opacity=".35" /><stop offset="1" stop-color="#b79cff" stop-opacity=".55" /></linearGradient>
+          </defs>
+          <g fill="none" stroke="#fff" stroke-opacity=".1">
+            <path d="M0 66q105-44 210 0t210 0M0 92q105-44 210 0t210 0M0 118q105-44 210 0t210 0M0 144q105-44 210 0t210 0" />
+          </g>
+          <g class="nota" fill="url(#f-v)" stroke="#fff" stroke-opacity=".5" stroke-linejoin="round">
+            <path d="M176 22 274 6v22l-86 14v86a28 20-18 1 1-12-15zM262 30h12v78a28 20-18 1 1-12-15z" />
+          </g>
+          <g class="nota dos" fill="url(#f-v)" stroke="#fff" stroke-opacity=".45" stroke-linejoin="round">
+            <path d="M74 56h9c3 20 26 22 24 48-5-13-14-18-24-19v46a20 14-18 1 1-9-11z" />
+          </g>
+          <g class="nota tres" fill="url(#f-v)" stroke="#fff" stroke-opacity=".45">
+            <path d="M356 70h8v58a18 13-18 1 1-8-10z" />
+          </g>
+        </svg>
+        <span class="numero" aria-hidden="true">02</span>
+      </li>
+
+      <li class="cristal alta">
+        <h3>Cambia el formato</h3>
+        <p>Acepta 21 tipos de archivo, como MKV, MOV o WMA. También sirve para sacar el audio de un video.</p>
+        <div class="fichas"><span class="sub">Pasa a</span>
+          @for (s of salidas; track s) { <b>{{ s }}</b> }
+        </div>
+        <svg class="arte" viewBox="0 0 420 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <linearGradient id="f-o" gradientUnits="userSpaceOnUse" x2="420"><stop stop-color="#7df3ff" /><stop offset="1" stop-color="#b79cff" /></linearGradient>
+          </defs>
+          <g class="onda" fill="url(#f-o)">
+            @for (o of onda; track $index) {
+              <rect [attr.x]="8 + $index * 10.2" [attr.y]="95 - o" width="5" [attr.height]="o * 2" rx="2.5"
+                [attr.opacity]="0.35 + o / 130" />
+            }
+          </g>
+        </svg>
+        <span class="numero" aria-hidden="true">03</span>
+      </li>
+
+      <li class="cristal grande">
+        <div class="texto">
+          <h3>Convierte varios a la vez</h3>
+          <p>Agrega los archivos que quieras y pásalos todos al mismo formato.</p>
+        </div>
+        <img src="app-convertir-1400.webp" srcset="app-convertir-760.webp 760w, app-convertir-1400.webp 1400w"
+          sizes="(max-width: 960px) 92vw, 760px" width="1400" height="700" loading="lazy"
+          alt="Sección Convertir de Zaynix con tres archivos, MKV, WAV y WMA, listos para pasar a MP3" />
+        <span class="numero" aria-hidden="true">04</span>
+      </li>
+
+      @for (c of chicas; track c.titulo; let i = $index) {
+        <li class="cristal chica">
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="c.icono" /></svg>
+          <h3>{{ c.titulo }}</h3>
+          <p>{{ c.texto }}</p>
+          <span class="numero" aria-hidden="true">0{{ i + 5 }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

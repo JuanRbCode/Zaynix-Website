@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Layout } from './components/layout/layout/layout';
+import { DesplazamientoService } from './services/desplazamiento';
 import { SeoService } from './services/seo';
 
 @Component({
@@ -11,5 +12,6 @@ import { SeoService } from './services/seo';
 export class App {
   constructor() {
     inject(SeoService).iniciar();
+    inject(DesplazamientoService).iniciar();
   }
 }

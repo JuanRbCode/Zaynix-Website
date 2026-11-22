@@ -1,0 +1,61 @@
+<footer>
+  <div class="contenido">
+    <div class="columnas">
+      <div class="marca">
+        <a class="logo" routerLink="/">
+          <img src="logo.svg" alt="" width="40" height="40" />
+          <span>Zaynix</span>
+          <span class="solo-lector">, inicio</span>
+        </a>
+        <p>Para descargar y convertir audio y video en Windows. Es gratis y no tiene anuncios.</p>
+        <a class="github" [href]="repositorio" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+          </svg>
+          Ver en GitHub<span class="solo-lector"> (se abre en otra pestaña)</span></a>
+      </div>
+
+      <nav aria-labelledby="pie-producto">
+        <h2 id="pie-producto">Producto</h2>
+        <ul>
+          <li><a href="/descargar" rel="nofollow">Descargar</a></li>
+          <li><a routerLink="/funciones">Funciones</a></li>
+          <li><a routerLink="/instalacion">Instalación</a></li>
+          <li><a routerLink="/ayuda">Ayuda</a></li>
+          <li><a [href]="repositorio + '/blob/main/CHANGELOG.md'" target="_blank" rel="noopener">Novedades<span class="solo-lector"> (se abre en otra pestaña)</span></a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="pie-github">
+        <h2 id="pie-github">GitHub</h2>
+        <ul>
+          <li><a [href]="repositorio" target="_blank" rel="noopener">Código fuente<span class="solo-lector"> (se abre en otra pestaña)</span></a></li>
+          <li><a [href]="repositorio + '/releases'" target="_blank" rel="noopener">Todas las versiones<span class="solo-lector"> (se abre en otra pestaña)</span></a></li>
+          <li><a [href]="repositorio + '/issues'" target="_blank" rel="noopener">Contacto y problemas<span class="solo-lector"> (se abre en otra pestaña)</span></a></li>
+          <li><a [href]="autor" target="_blank" rel="noopener">JuanRbCode<span class="solo-lector"> (se abre en otra pestaña)</span></a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="pie-legal">
+        <h2 id="pie-legal">Legal</h2>
+        <ul>
+          <li><a routerLink="/privacidad">Privacidad</a></li>
+          <li><a routerLink="/terminos">Términos</a></li>
+          <li><a routerLink="/licencias">Licencias, nombre y logo</a></li>
+          <li><a routerLink="/accesibilidad">Accesibilidad</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="aviso">
+      La versión oficial de Zaynix no se cobra. Úsala solo con contenido que tengas derecho a descargar. No está afiliada
+      a los sitios desde los que descargas.
+    </p>
+
+    <div class="base">
+      <p>© 2026 JuanRbCode</p>
+      <p>GPLv3, sin garantía</p>
+    </div>
+  </div>
+</footer>

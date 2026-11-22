@@ -1,13 +1,32 @@
 .layout {
+  width: 100%;
   min-height: 100dvh;
+  position: relative;
+  background-color: #000000;
+  background-image: radial-gradient(ellipse 70% 650px at 50% 350px,
+      #2e333d 0%,
+      #1e2129 28%,
+      #101218 55%,
+      #050608 78%,
+      #000000 100%);
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
 }
 
 app-topbar {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 10;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.25s, backdrop-filter 0.25s, border-color 0.25s;
+
+  &.con-fondo {
+    background-color: rgba(8, 9, 12, 0.72);
+    backdrop-filter: blur(14px) saturate(1.2);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
 }
 
 .show {

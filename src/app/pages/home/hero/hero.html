@@ -1,0 +1,111 @@
+<div class="hero" id="hero">
+  <div class="escena">
+    <div class="luz" aria-hidden="true"></div>
+
+    <svg class="vinilo" viewBox="0 0 800 800" aria-hidden="true">
+      <defs>
+        <linearGradient id="arco" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="#b79cff" />
+          <stop offset="1" stop-color="#7df3ff" />
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="#fff">
+        <circle cx="400" cy="400" r="392" stroke-opacity=".05" />
+        <circle cx="400" cy="400" r="352" stroke-opacity=".07" />
+        <circle cx="400" cy="400" r="306" stroke-opacity=".05" />
+        <circle cx="400" cy="400" r="264" stroke-opacity=".08" />
+        <circle cx="400" cy="400" r="222" stroke-opacity=".05" />
+        <circle class="marcas" cx="400" cy="400" r="372" stroke-opacity=".28" stroke-width="10"
+          stroke-dasharray="1.5 12.98" />
+      </g>
+      <circle class="arco brillo" cx="400" cy="400" r="330" pathLength="100" />
+      <circle class="arco" cx="400" cy="400" r="330" pathLength="100" />
+    </svg>
+
+    <svg class="ondas" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="onda">
+          <stop offset="0" stop-color="#7df3ff" stop-opacity="0" />
+          <stop offset=".45" stop-color="#7df3ff" stop-opacity=".55" />
+          <stop offset=".75" stop-color="#b79cff" stop-opacity=".55" />
+          <stop offset="1" stop-color="#b79cff" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="url(#onda)">
+        <path d="M0 250C180 250 250 120 420 190S690 330 860 200 1180 90 1440 180" />
+        <path d="M0 262C190 262 260 160 430 210S700 300 870 215 1190 130 1440 205" opacity=".7" />
+        <path d="M0 274C200 274 270 200 440 232S710 272 880 232 1200 172 1440 230" opacity=".5" />
+        <path d="M0 286C210 286 280 240 450 254S720 246 890 250 1210 214 1440 254" opacity=".35" />
+      </g>
+    </svg>
+
+    <div class="ficha atras" aria-hidden="true"><b>4K</b><span>si el video lo tiene</span></div>
+
+    <img class="wi" src="wi-1600.webp" srcset="wi-900.webp 900w, wi-1600.webp 1600w, wi-2153.webp 2153w"
+      sizes="(max-width: 900px) min(172vw, 975px), 96vw" width="1600" height="874" fetchpriority="high"
+      alt="Mascota de Zaynix: chica anime de pelo plateado con audífonos del logo ZX" />
+
+    <div class="ficha audio" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i>
+      <span>MP3 · FLAC · WAV</span>
+    </div>
+  </div>
+
+  <section class="portada">
+    <p class="insignia"><img src="logo.svg" alt="" width="22" height="22" />Gratis y de código abierto</p>
+
+    <h1>
+      Descarga y convierte audio y video,
+      <span class="acento">sin complicaciones.
+        <svg viewBox="0 0 420 22" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M3 16C90 4 250 1 417 7 290 8 160 12 72 20 120 13 180 10 240 9 150 9 70 13 3 16Z" />
+        </svg>
+      </span>
+    </h1>
+
+    <p class="subtitulo">Pega un enlace de tus plataformas de música y entretenimiento, o abre un archivo de tu PC.</p>
+
+    <div class="acciones">
+      <a class="boton primario" href="/descargar" rel="nofollow">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
+        </svg>
+        Descargar para Windows
+      </a>
+      <a class="boton" [href]="version.repositorio" target="_blank" rel="noopener">Ver el código<span class="solo-lector"> (se abre en otra pestaña)</span></a>
+    </div>
+
+    <p class="detalle">
+      @if (info(); as i) {
+      Versión {{ i.version }}
+      @if (tamano()) { · {{ tamano() }} }
+      · Windows 10 y 11 (64 bits)
+      } @else {
+      Windows 10 y 11 (64 bits)
+      }
+    </p>
+  </section>
+
+  <div class="cinta" role="region" aria-label="Lo que hace Zaynix" [class.pausada]="pausada()">
+    <div class="ventana">
+    <div class="pista">
+      @for (copia of [0, 1]; track copia) {
+        <ul [attr.aria-hidden]="copia === 1 ? 'true' : null">
+          @for (v of ventajas; track v.titulo) {
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="v.icono" /></svg>
+              <div><b>{{ v.titulo }}</b><span>{{ v.texto }}</span></div>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+    </div>
+    <button type="button" [attr.aria-label]="pausada() ? 'Reanudar movimiento' : 'Pausar movimiento'"
+      (click)="pausada.set(!pausada())">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        <path [attr.d]="pausada() ? 'M8 5v14l11-7z' : 'M7 5h4v14H7zM13 5h4v14h-4z'" />
+      </svg>
+    </button>
+  </div>
+</div>

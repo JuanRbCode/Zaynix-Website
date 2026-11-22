@@ -4,10 +4,11 @@ import { REPOSITORIO } from '../../../sitio';
 
 @Component({
   imports: [RouterLink],
-  selector: 'app-pie',
-  styleUrl: './pie.scss',
-  templateUrl: './pie.html',
+  selector: 'app-footer',
+  styleUrl: './footer.scss',
+  templateUrl: './footer.html',
 })
-export class Pie {
+export class Footer {
   protected readonly repositorio = REPOSITORIO;
+  protected readonly autor = 'https://github.com/JuanRbCode';
 }

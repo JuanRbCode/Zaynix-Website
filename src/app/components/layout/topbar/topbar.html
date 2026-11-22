@@ -1,14 +1,28 @@
 <header>
-  <a class="logo-container" routerLink="/">
+  <a class="logo-container" routerLink="/" (click)="cerrar()">
     <img src="logo.svg" alt="" width="22" height="22" />
     <span>Zaynix</span>
     <span class="solo-lector">, inicio</span>
   </a>
 
-  <nav aria-label="Principal">
-    <a routerLink="/" fragment="funciones">Funciones</a>
-    <a routerLink="/" fragment="instalar">Instalación</a>
-    <a [href]="repositorio" rel="noopener">GitHub</a>
-    <a class="descargar" href="/descargar" rel="nofollow">Descargar</a>
+  <nav id="menu-principal" aria-label="Principal" [class.abierto]="abierto()" (click)="cerrar()">
+    <a routerLink="/">Inicio</a>
+    <a routerLink="/funciones">Funciones</a>
+    <a routerLink="/instalacion">Instalación</a>
+    <a routerLink="/ayuda">Ayuda</a>
+    <a [href]="repositorio" target="_blank" rel="noopener">GitHub<span class="solo-lector"> (se abre en otra pestaña)</span></a>
   </nav>
+
+  <a class="descargar" href="/descargar" rel="nofollow">Descargar</a>
+
+  <button #botonMenu class="menu" type="button" aria-controls="menu-principal" [attr.aria-expanded]="abierto()"
+    [attr.aria-label]="abierto() ? 'Cerrar menú' : 'Abrir menú'" (click)="alternar()">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+      @if (abierto()) {
+      <path d="M6 6l12 12M18 6 6 18" />
+      } @else {
+      <path d="M4 7h16M4 12h16M4 17h16" />
+      }
+    </svg>
+  </button>
 </header>
