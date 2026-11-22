@@ -9,7 +9,8 @@
 }
 
 h1,
-h2 {
+h2,
+h3 {
   color: #ededed;
   line-height: 1.25;
 }
@@ -46,4 +47,23 @@ a {
 
 code {
   word-break: break-word;
+}
+
+h3 {
+  margin: 24px 0 8px;
+  font-size: 17px;
+}
+
+.programas {
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2px 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #2a2d34;
+  }
 }
