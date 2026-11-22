@@ -20,23 +20,20 @@ npm run build
 npm start          # node server.mjs en $PORT
 ```
 
-## Publicar una nueva versión de la app
+## Cómo se publica una versión nueva (automático)
 
-La app de escritorio consulta `https://<dominio>/version.json` cada 6 horas. Al publicar una versión:
+1. En el repo Zaynix se hace push a `main` con una `VERSION` nueva.
+2. GitHub Actions compila el instalador y crea el Release `vX.Y.Z`.
+3. `server.mjs` consulta el último Release de GitHub (caché de 10 minutos), así que en menos de 10 minutos:
+   - `/descargar` redirige al instalador nuevo.
+   - `/version.json` informa la versión nueva y las apps instaladas muestran el aviso.
 
-1. Sube el instalador al Release de GitHub de Zaynix.
-2. Actualiza `public/version.json`:
+No hay que tocar nada en este repositorio. `public/version.json` solo se usa si GitHub no responde.
 
-```json
-{
-  "version": "0.8.0",
-  "fecha": "2026-12-01",
-  "descarga": "https://github.com/JuanRbCode/Zaynix/releases/latest",
-  "notas": "Resumen corto de las novedades."
-}
-```
+Variables opcionales en Railway:
 
-3. Haz push a `main`. Railway vuelve a desplegar y todas las apps instaladas verán el aviso.
+- `GITHUB_TOKEN`: token de solo lectura para no depender del límite público de la API de GitHub (permite mostrar tamaño, notas y SHA-256).
+- `ZAYNIX_REPO`: repositorio de la app (por defecto `JuanRbCode/Zaynix`).
 
 ## Ramas
 
