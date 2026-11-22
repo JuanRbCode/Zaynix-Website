@@ -72,7 +72,8 @@
         </svg>
         Descargar para Windows
       </a>
-      <a class="boton" [href]="version.repositorio" target="_blank" rel="noopener">Ver el código<span class="solo-lector"> (se abre en otra pestaña)</span></a>
+      <a class="boton" [href]="version.repositorio" target="_blank" rel="noopener">Ver el código<span
+          class="solo-lector"> (se abre en otra pestaña)</span></a>
     </div>
 
     <p class="detalle">
@@ -88,18 +89,20 @@
 
   <div class="cinta" role="region" aria-label="Lo que hace Zaynix" [class.pausada]="pausada()">
     <div class="ventana">
-    <div class="pista">
-      @for (copia of [0, 1]; track copia) {
+      <div class="pista">
+        @for (copia of [0, 1]; track copia) {
         <ul [attr.aria-hidden]="copia === 1 ? 'true' : null">
           @for (v of ventajas; track v.titulo) {
-            <li>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="v.icono" /></svg>
-              <div><b>{{ v.titulo }}</b><span>{{ v.texto }}</span></div>
-            </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="v.icono" />
+            </svg>
+            <div><b>{{ v.titulo }}</b><span>{{ v.texto }}</span></div>
+          </li>
           }
         </ul>
-      }
-    </div>
+        }
+      </div>
     </div>
     <button type="button" [attr.aria-label]="pausada() ? 'Reanudar movimiento' : 'Pausar movimiento'"
       (click)="pausada.set(!pausada())">
