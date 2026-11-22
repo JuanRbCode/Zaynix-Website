@@ -1,10 +1,13 @@
 <div class="layout">
 
-    <app-topbar></app-topbar>
+    <a class="saltar" href="#contenido" (click)="saltar($event, contenido)">Saltar al contenido</a>
 
-    <div class="show">
+    <app-topbar [class.con-fondo]="desplazado()"></app-topbar>
+
+    <main id="contenido" class="show" tabindex="-1" #contenido>
         <router-outlet></router-outlet>
-    </div>
+    </main>
 
+    <app-footer></app-footer>
 
 </div>

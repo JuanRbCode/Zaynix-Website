@@ -1,11 +1,27 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { MeGusta, ipDe } from './me-gusta.mjs';
 
 const PUERTO = Number(process.env.PORT) || 3000;
 const RAIZ = path.resolve('dist/Zaynix-Website/browser');
 const REPO = process.env.ZAYNIX_REPO || 'JuanRbCode/Zaynix';
 const CACHE_MS = 10 * 60 * 1000;
+const EN_RAILWAY = Boolean(process.env.RAILWAY_ENVIRONMENT_ID || process.env.RAILWAY_PROJECT_ID);
+const DATOS = process.env.DATOS || process.env.RAILWAY_VOLUME_MOUNT_PATH || (EN_RAILWAY ? null : '.datos');
+
+const meGusta = abrirMeGusta();
+
+function abrirMeGusta() {
+  if (!DATOS) return null;
+  try {
+    return new MeGusta(DATOS);
+  } catch (error) {
+    console.error('Me gusta desactivado:', error.message);
+    return null;
+  }
+}
 
 const TIPOS = {
   '.html': 'text/html; charset=utf-8',
@@ -19,6 +35,7 @@ const TIPOS = {
   '.jpg': 'image/jpeg',
   '.woff2': 'font/woff2',
   '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
 };
 
 function respaldo() {
@@ -97,47 +114,122 @@ async function versionPorRedireccion() {
   }
 }
 
-function enviarArchivo(res, ruta) {
-  const tipo = TIPOS[path.extname(ruta).toLowerCase()] || 'application/octet-stream';
-  const inmutable = /-[A-Z0-9]{8}\.(js|css)$/.test(ruta);
-  res.writeHead(200, {
-    'Content-Type': tipo,
-    'Cache-Control': inmutable ? 'public, max-age=31536000, immutable' : 'no-cache',
-    'X-Content-Type-Options': 'nosniff',
-  });
-  fs.createReadStream(ruta).pipe(res);
+const SEGURIDAD = {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+  'Strict-Transport-Security': 'max-age=31536000',
+  'Content-Security-Policy':
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+};
+
+function responder(req, res, estado, cabeceras, cuerpo = '') {
+  res.writeHead(estado, { ...SEGURIDAD, ...cabeceras });
+  res.end(req.method === 'HEAD' ? undefined : cuerpo);
 }
 
-const servidor = http.createServer(async (req, res) => {
-  const url = new URL(req.url, 'http://localhost');
+function enviarArchivo(req, res, ruta, estado = 200) {
+  const tipo = TIPOS[path.extname(ruta).toLowerCase()] || 'application/octet-stream';
+  const inmutable = /-[A-Z0-9]{8}\.(js|css)$/.test(ruta);
+  res.writeHead(estado, {
+    ...SEGURIDAD,
+    'Content-Type': tipo,
+    'Cache-Control': inmutable ? 'public, max-age=31536000, immutable' : 'no-cache',
+  });
+  if (req.method === 'HEAD') return res.end();
+  fs.createReadStream(ruta)
+    .on('error', () => res.destroy())
+    .pipe(res);
+}
 
-  if (url.pathname === '/version.json') {
+function buscarArchivo(camino) {
+  const ruta = path.join(RAIZ, camino);
+  if (ruta !== RAIZ && !ruta.startsWith(RAIZ + path.sep)) return null;
+  for (const opcion of [ruta, path.join(ruta, 'index.html')]) {
+    if (fs.existsSync(opcion) && fs.statSync(opcion).isFile()) return opcion;
+  }
+  return null;
+}
+
+function atenderMeGusta(req, res) {
+  const json = (estado, datos, extra = {}) =>
+    responder(
+      req,
+      res,
+      estado,
+      { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex', ...extra },
+      JSON.stringify(datos),
+    );
+  req.resume();
+  if (!['GET', 'HEAD', 'POST'].includes(req.method)) return json(405, { error: 'No permitido' }, { Allow: 'GET, HEAD, POST' });
+  const ip = ipDe(req, EN_RAILWAY);
+  if (!meGusta || !ip) return json(503, { error: 'No disponible' });
+  if (req.method !== 'POST') return json(200, meGusta.estado(ip));
+  let origen = null;
+  try {
+    origen = new URL(req.headers.origin).host;
+  } catch {}
+  if (!origen || origen !== req.headers.host) return json(403, { error: 'No permitido' });
+  return json(200, meGusta.marcar(ip));
+}
+
+async function atender(req, res) {
+  if (req.url.split(/[?#]/)[0] === '/api/me-gusta') return atenderMeGusta(req, res);
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    return responder(req, res, 405, { Allow: 'GET, HEAD', 'Content-Type': 'text/plain; charset=utf-8' }, 'No permitido');
+  }
+
+  let camino;
+  try {
+    camino = decodeURIComponent(req.url.split(/[?#]/)[0]);
+  } catch {
+    return responder(req, res, 400, { 'Content-Type': 'text/plain; charset=utf-8' }, 'Dirección inválida');
+  }
+  if (camino.includes('\0')) {
+    return responder(req, res, 400, { 'Content-Type': 'text/plain; charset=utf-8' }, 'Dirección inválida');
+  }
+
+  if (camino === '/version.json') {
     const datos = await ultimaVersion();
-    res.writeHead(200, {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-store',
-      'Access-Control-Allow-Origin': '*',
-    });
-    return res.end(JSON.stringify(datos));
+    return responder(
+      req,
+      res,
+      200,
+      {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'Access-Control-Allow-Origin': '*',
+        'X-Robots-Tag': 'noindex',
+      },
+      JSON.stringify(datos),
+    );
   }
 
-  if (url.pathname === '/descargar') {
+  if (camino === '/descargar') {
     const datos = await ultimaVersion();
-    res.writeHead(302, { Location: datos.descarga, 'Cache-Control': 'no-store' });
-    return res.end();
+    return responder(req, res, 302, { Location: datos.descarga, 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' });
   }
 
-  if (url.pathname === '/salud') {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    return res.end('ok');
-  }
+  if (camino === '/salud') return responder(req, res, 200, { 'Content-Type': 'text/plain' }, 'ok');
+  if (camino === '/home') return responder(req, res, 301, { Location: '/' });
 
-  const pedido = path.normalize(decodeURIComponent(url.pathname)).replace(/^([/\\])+/, '');
-  const ruta = path.join(RAIZ, pedido);
-  if (ruta.startsWith(RAIZ) && fs.existsSync(ruta) && fs.statSync(ruta).isFile()) {
-    return enviarArchivo(res, ruta);
-  }
-  enviarArchivo(res, path.join(RAIZ, 'index.html'));
+  const limpio = camino.replace(/^\/+/, '').replace(/\/+$/, '');
+  const archivo = buscarArchivo(limpio);
+  if (archivo && limpio !== '404') return enviarArchivo(req, res, archivo);
+
+  const pagina404 = buscarArchivo('404');
+  if (pagina404) return enviarArchivo(req, res, pagina404, 404);
+  responder(req, res, 404, { 'Content-Type': 'text/plain; charset=utf-8' }, 'No encontrado');
+}
+
+export const servidor = http.createServer((req, res) => {
+  atender(req, res).catch((error) => {
+    console.error('Error al atender', req.url, error);
+    if (!res.headersSent) responder(req, res, 500, { 'Content-Type': 'text/plain; charset=utf-8' }, 'Error del servidor');
+    else res.destroy();
+  });
 });
 
-servidor.listen(PUERTO, () => console.log(`Zaynix Website en el puerto ${PUERTO}`));
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  servidor.listen(PUERTO, () => console.log(`Zaynix Website en el puerto ${PUERTO}`));
+}

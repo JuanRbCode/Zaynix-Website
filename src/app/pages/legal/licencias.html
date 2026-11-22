@@ -1,0 +1,39 @@
+<h1>Licencias, nombre y logo</h1>
+<p class="fecha">Actualizado el 22 de noviembre de 2026</p>
+
+<h2>El código</h2>
+<p>Puedes usar, revisar, cambiar y compartir el código de Zaynix según la <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener">GPL versión 3<span class="solo-lector"> (se abre en otra pestaña)</span></a> o posterior. No tiene garantía. Si distribuyes tu versión, gratis o cobrando, entrega también su código con esa licencia y deja los avisos de autoría.</p>
+<p>Hasta la versión 0.7.1 la licencia era MIT.</p>
+
+<h2>El nombre y el logo</h2>
+<p>El nombre Zaynix y el logo ZX no entran en esa licencia. Son de JuanRbCode.</p>
+
+<h3>Puedes, sin pedir permiso</h3>
+<ul>
+  <li>Pasarle a alguien el instalador oficial sin cambiarlo y sin cobrar.</li>
+  <li>Hablar de Zaynix en reseñas, tutoriales, noticias o comparaciones, y mostrar el logo o capturas ahí.</li>
+  <li>Decir que tu proyecto está basado en Zaynix, si tiene otro nombre y otro logo.</li>
+  <li>Compilarla para ti o para ayudar en el proyecto.</li>
+</ul>
+
+<h3>No puedes, salvo que te dé permiso por escrito</h3>
+<ul>
+  <li>Publicar o vender una versión modificada que se llame Zaynix, que tenga un nombre fácil de confundir o que lleve el logo ZX.</li>
+  <li>Vender copias usando el nombre o el logo como marca.</li>
+  <li>Usarlos en dominios, cuentas o anuncios que parezcan oficiales.</li>
+</ul>
+
+<h3>Si vas a publicar tu versión</h3>
+<p>Cambia el nombre, los iconos y el logo en la app, el instalador y la documentación. Cambia también la página y el repositorio que consulta, la carpeta donde guarda los datos y el identificador del instalador. Los avisos de autoría se quedan.</p>
+
+<h2>Lo que usa por dentro</h2>
+<p>Estos son los programas principales que trae el instalador. Desde la versión 0.7.2, los textos de sus licencias y los de las demás librerías están en la carpeta <code>licencias</code> del programa.</p>
+<ul class="programas">
+  @for (p of programas; track p.nombre) {
+    <li>
+      <a [href]="p.url" target="_blank" rel="noopener">{{ p.nombre }}<span class="solo-lector"> (se abre en otra pestaña)</span></a>
+      <span>{{ p.licencia }}</span>
+    </li>
+  }
+</ul>
+<p>FFmpeg se usa como programa aparte y sin cambios. La compilación es la "essentials" de <a href="https://www.gyan.dev/ffmpeg/builds/" target="_blank" rel="noopener">gyan.dev<span class="solo-lector"> (se abre en otra pestaña)</span></a>.</p>

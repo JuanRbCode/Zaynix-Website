@@ -1,43 +1,44 @@
 <section class="portada">
-  <img class="logo" src="logo.svg" alt="Zaynix" width="64" height="64" />
+  <img class="logo" src="img/marca/logo.svg" alt="Logo de Zaynix" width="64" height="64" />
   <h1>Descarga y convierte audio y video,<br />sin complicaciones.</h1>
-  <p class="subtitulo">Aplicación de escritorio para Windows. Gratuita, privada y de código abierto.</p>
+  <p class="subtitulo">Aplicación de escritorio para Windows. Gratis, sin anuncios y de código abierto.</p>
 
   <div class="acciones">
-    <a class="boton primario" href="/descargar">
+    <a class="boton primario" href="/descargar" rel="nofollow">
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
         <path fill="currentColor" d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z" />
       </svg>
       Descargar para Windows
     </a>
-    <a class="boton" [href]="version.repositorio" target="_blank" rel="noopener">Ver el código</a>
+    <a class="boton" [href]="version.repositorio" target="_blank" rel="noopener">Ver el código<span class="solo-lector"> (se abre en otra pestaña)</span></a>
   </div>
 
   <p class="detalle">
     @if (info(); as i) {
-      Versión {{ i.version }}
-      @if (tamano()) { · {{ tamano() }} }
-      @if (i.fecha) { · {{ i.fecha }} }
-      · Windows 10 y 11 (64 bits)
+    Versión {{ i.version }}
+    @if (tamano()) { · {{ tamano() }} }
+    @if (i.fecha) { · {{ i.fecha }} }
+    · Windows 10 y 11 (64 bits)
     } @else {
-      Windows 10 y 11 (64 bits)
+    Windows 10 y 11 (64 bits)
     }
   </p>
 </section>
 
 @if (info()?.notas) {
-  <section class="novedades">
-    <span class="etiqueta">Novedades de la v{{ info()?.version }}</span>
-    <p>{{ info()?.notas }}</p>
-  </section>
+<section class="novedades">
+  <h2 class="etiqueta">Novedades de la v{{ info()?.version }}</h2>
+  <p>{{ info()?.notas }}</p>
+</section>
 }
 
-<section id="funciones" class="funciones">
+<section id="funciones" class="funciones" aria-labelledby="titulo-funciones">
+  <h2 id="titulo-funciones" class="solo-lector">Funciones</h2>
   @for (f of funciones; track f.titulo) {
-    <article>
-      <h3>{{ f.titulo }}</h3>
-      <p>{{ f.texto }}</p>
-    </article>
+  <article>
+    <h3>{{ f.titulo }}</h3>
+    <p>{{ f.texto }}</p>
+  </article>
   }
 </section>
 
@@ -45,18 +46,13 @@
   <h2>Instalación</h2>
   <ol>
     @for (p of pasos; track p) {
-      <li>{{ p }}</li>
+    <li>{{ p }}</li>
     }
   </ol>
   @if (info()?.sha256) {
-    <div class="hash">
-      <span class="etiqueta">SHA-256 del instalador</span>
-      <code>{{ info()?.sha256 }}</code>
-    </div>
+  <div class="hash">
+    <span class="etiqueta">SHA-256 del instalador</span>
+    <code>{{ info()?.sha256 }}</code>
+  </div>
   }
 </section>
-
-<footer>
-  <span>Zaynix · Licencia MIT</span>
-  <span>Usa Zaynix solo con contenido que tengas derecho a descargar.</span>
-</footer>

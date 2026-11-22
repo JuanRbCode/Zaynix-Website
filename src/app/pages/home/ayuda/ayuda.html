@@ -1,0 +1,49 @@
+<section id="ayuda" aria-labelledby="titulo-ayuda">
+  <div class="panel">
+    <div class="entrada">
+      <h2 id="titulo-ayuda">¿Necesitas <em>ayuda?</em></h2>
+      <p>Revisa esto primero. Si sigues con el problema, escríbeme por GitHub.</p>
+    </div>
+    <ul>
+      <li>
+        <a routerLink="/instalacion">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 20h16" /></svg>
+          <b>Instalación</b><span>Los pasos y qué hacer con el aviso de Windows.</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/preguntas">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9a3 3 0 1 1 4 2.8c-.8.4-1 .9-1 1.7M12 17h.01M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" /></svg>
+          <b>Preguntas</b><span>Las dudas más comunes.</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/privacidad">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6zM9 12l2 2 4-4" /></svg>
+          <b>Privacidad</b><span>Qué guarda la app y a dónde se conecta.</span>
+        </a>
+      </li>
+      <li>
+        <a [href]="problemas" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4zM9 10h.01M12 10h.01M15 10h.01" /></svg>
+          <b>Contacto</b><span>Reporta un fallo o deja una idea.</span><span class="solo-lector"> (se abre en otra pestaña)</span></a>
+      </li>
+    </ul>
+  </div>
+
+  <div id="preguntas" class="preguntas">
+    <h3>Preguntas frecuentes</h3>
+    <div class="lista">
+      @for (columna of columnas; track $index) {
+        <div class="columna">
+          @for (q of columna; track q.p) {
+            <details>
+              <summary>{{ q.p }}</summary>
+              <p>{{ q.r }}</p>
+            </details>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

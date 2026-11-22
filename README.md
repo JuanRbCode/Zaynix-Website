@@ -8,6 +8,7 @@ Sitio web oficial de [Zaynix](https://github.com/JuanRbCode/Zaynix), hecho con A
 npm install
 npm run dev        # http://localhost:4200
 npm test -- --watch=false
+npm run test:servidor
 ```
 
 ## Producción (Railway)
@@ -30,7 +31,11 @@ npm start          # node server.mjs en $PORT
 
 No hay que tocar nada en este repositorio. `public/version.json` solo se usa si GitHub no responde.
 
-Variables opcionales en Railway:
+## Me gusta
+
+`/api/me-gusta` cuenta un voto por IP (en IPv6, por red /64). Guarda un HMAC, nunca la IP. En Railway necesita un volumen: usa `RAILWAY_VOLUME_MOUNT_PATH`. Sin volumen la sección no se muestra. En local guarda en `.datos`.
+
+## Variables opcionales en Railway
 
 - `GITHUB_TOKEN`: token de solo lectura para no depender del límite público de la API de GitHub (permite mostrar tamaño, notas y SHA-256).
 - `ZAYNIX_REPO`: repositorio de la app (por defecto `JuanRbCode/Zaynix`).
